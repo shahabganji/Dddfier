@@ -5,6 +5,42 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>latest</LangVersion>
+
+        <NoWarn>$(NoWarn);NU5128</NoWarn>
+
     </PropertyGroup>
+
+    <PropertyGroup>
+
+        <IncludeSymbols>true</IncludeSymbols>
+
+        <!-- 👇 For being able to debug this by hitting F5 in the IDE -->
+        <!--
+             - IsRoslyComponent helps to debug the source generator in Visual Studio or Rider. To debug it:
+             - 1. Install the component ".NET compiler platform SDK"
+             - 2. Set the this project as startup project
+             - 3. Configure this project's debug launch profiles: Add an new "Roslyn Component" profile and set the Target Project to Ringana.Domain.PrimitiveValueObject.JsonNet.Console
+        -->
+        <IsRoslynComponent>true</IsRoslynComponent>
+        <!-- 👇 We don't want to reference the source generator dll directly in consuming projects -->
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+    </PropertyGroup>
+
+    <!--    <PropertyGroup>-->
+    <!--        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
+    <!--        <IncludeBuildOutput>false</IncludeBuildOutput>-->
+    <!--        <Version>1.0.0</Version>-->
+    <!--        <AssemblyVersion>$(Version).0</AssemblyVersion>-->
+    <!--        <AssemblyFileVersion>$(Version).0</AssemblyFileVersion>-->
+    <!--        <Authors>Shahab</Authors>-->
+
+    <!--        <Description>Contains a C# Source Generator for generating DDD related code</Description>-->
+    <!--    </PropertyGroup>-->
+
+
+    <!-- 👇 This ensures the library will be packaged as a source generator when we use `dotnet pack` -->
+    <ItemGroup>
+        <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    </ItemGroup>
 
 </Project>
