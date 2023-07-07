@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Dddifier;
+namespace Dddifier.Generators;
 
 [Generator]
 public sealed class AggregateIdGenerator : IIncrementalGenerator
