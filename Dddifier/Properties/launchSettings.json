@@ -3,7 +3,7 @@
   "profiles": {
     "Dddifier": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\Dddfier\\Dddfier.Console.csproj"
+      "targetProject": "../Dddfier.Console/Dddfier.Console.csproj"
     }
   }
 }
