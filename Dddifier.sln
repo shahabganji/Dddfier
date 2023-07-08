@@ -4,6 +4,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dddifier", "Dddifier\Dddifi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dddfier.Console", "Dddfier.Console\Dddfier.Console.csproj", "{579A8A56-AAF5-4946-B0EC-863EDA5D3C54}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github/workflows", ".github/workflows", "{AB28D79A-D6A3-4048-82BE-9AD129DC2B3A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\publish-github-nuget.yml = .github\workflows\publish-github-nuget.yml
+		.github\workflows\publish-official-nuget.yml = .github\workflows\publish-official-nuget.yml
+		.github\workflows\test.yml = .github\workflows\test.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
