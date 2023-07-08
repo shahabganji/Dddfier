@@ -1,0 +1,38 @@
+name: Publish to GitHub NuGet
+
+on:
+  push:
+    branches:
+      - dev
+  release:
+    types:
+      - created
+
+jobs:
+  publish-github-nuget:
+    name: Publish to GitHub NuGet
+    runs-on: ubuntu-latest
+
+    needs: [build, test]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.0.x' # Change to your desired .NET version
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Publish NuGet packages
+        run: dotnet pack --configuration Release --output nupkg
+        env:
+          NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        run: dotnet nuget push **/*.nupkg --source https://nuget.pkg.github.com/OWNER/index.json
+        env:
+          NUGET_KEY: ${{ secrets.GITHUB_TOKEN }}
