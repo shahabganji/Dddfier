@@ -1,0 +1,86 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33627.172
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github/workflows", ".github/workflows", "{AB28D79A-D6A3-4048-82BE-9AD129DC2B3A}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\build.yml = .github\workflows\build.yml
+		.github\workflows\publish-github-nuget.yml = .github\workflows\publish-github-nuget.yml
+		.github\workflows\publish-official-nuget.yml = .github\workflows\publish-official-nuget.yml
+		.github\workflows\test.yml = .github\workflows\test.yml
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dddfier.Tests", "tests\Dddfier.Tests\Dddfier.Tests.csproj", "{D8CD7D44-E97B-4626-9754-D38274B3551D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9C9B1D35-6FAF-4E95-9EA1-A3392F37DE38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{647CA360-81B8-46AF-A41D-A1CC36398E6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dddfier", "src\Dddfier\Dddfier.csproj", "{205F1FD9-D046-475B-A41A-47C21D07B92D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dddfier.Console", "src\Dddfier.Console\Dddfier.Console.csproj", "{B6C3548F-8845-42AB-AABC-4D86C86A3397}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dddfier.Analyzer", "src\Dddfier.Analyzer\Dddfier.Analyzer\Dddfier.Analyzer.csproj", "{F10B0D80-2EF1-42BE-A561-DDE52941CFE2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dddfier.Analyzer.CodeFixes", "src\Dddfier.Analyzer\Dddfier.Analyzer.CodeFixes\Dddfier.Analyzer.CodeFixes.csproj", "{B9D02D8E-3DF0-4D5D-9E43-D417270D7F79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dddfier.Analyzer.Package", "src\Dddfier.Analyzer\Dddfier.Analyzer.Package\Dddfier.Analyzer.Package.csproj", "{799B9F66-E31F-4EEB-B665-04755ED700D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dddfier.Analyzer.Vsix", "src\Dddfier.Analyzer\Dddfier.Analyzer.Vsix\Dddfier.Analyzer.Vsix.csproj", "{846A0A83-42C6-4BD1-888E-8A28A9B4A5CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dddfier.Analyzer.Test", "tests\Dddfier.Analyzer.Test\Dddfier.Analyzer.Test.csproj", "{ED311567-D612-48A5-84A5-EBD183EBB975}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8CD7D44-E97B-4626-9754-D38274B3551D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8CD7D44-E97B-4626-9754-D38274B3551D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8CD7D44-E97B-4626-9754-D38274B3551D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8CD7D44-E97B-4626-9754-D38274B3551D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{205F1FD9-D046-475B-A41A-47C21D07B92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{205F1FD9-D046-475B-A41A-47C21D07B92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{205F1FD9-D046-475B-A41A-47C21D07B92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{205F1FD9-D046-475B-A41A-47C21D07B92D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6C3548F-8845-42AB-AABC-4D86C86A3397}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6C3548F-8845-42AB-AABC-4D86C86A3397}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6C3548F-8845-42AB-AABC-4D86C86A3397}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6C3548F-8845-42AB-AABC-4D86C86A3397}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F10B0D80-2EF1-42BE-A561-DDE52941CFE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10B0D80-2EF1-42BE-A561-DDE52941CFE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10B0D80-2EF1-42BE-A561-DDE52941CFE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10B0D80-2EF1-42BE-A561-DDE52941CFE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9D02D8E-3DF0-4D5D-9E43-D417270D7F79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9D02D8E-3DF0-4D5D-9E43-D417270D7F79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9D02D8E-3DF0-4D5D-9E43-D417270D7F79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9D02D8E-3DF0-4D5D-9E43-D417270D7F79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{799B9F66-E31F-4EEB-B665-04755ED700D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{799B9F66-E31F-4EEB-B665-04755ED700D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{799B9F66-E31F-4EEB-B665-04755ED700D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{799B9F66-E31F-4EEB-B665-04755ED700D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{846A0A83-42C6-4BD1-888E-8A28A9B4A5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{846A0A83-42C6-4BD1-888E-8A28A9B4A5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{846A0A83-42C6-4BD1-888E-8A28A9B4A5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{846A0A83-42C6-4BD1-888E-8A28A9B4A5CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED311567-D612-48A5-84A5-EBD183EBB975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED311567-D612-48A5-84A5-EBD183EBB975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED311567-D612-48A5-84A5-EBD183EBB975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED311567-D612-48A5-84A5-EBD183EBB975}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8CD7D44-E97B-4626-9754-D38274B3551D} = {9C9B1D35-6FAF-4E95-9EA1-A3392F37DE38}
+		{205F1FD9-D046-475B-A41A-47C21D07B92D} = {647CA360-81B8-46AF-A41D-A1CC36398E6C}
+		{B6C3548F-8845-42AB-AABC-4D86C86A3397} = {647CA360-81B8-46AF-A41D-A1CC36398E6C}
+		{F10B0D80-2EF1-42BE-A561-DDE52941CFE2} = {647CA360-81B8-46AF-A41D-A1CC36398E6C}
+		{B9D02D8E-3DF0-4D5D-9E43-D417270D7F79} = {647CA360-81B8-46AF-A41D-A1CC36398E6C}
+		{799B9F66-E31F-4EEB-B665-04755ED700D6} = {647CA360-81B8-46AF-A41D-A1CC36398E6C}
+		{846A0A83-42C6-4BD1-888E-8A28A9B4A5CA} = {647CA360-81B8-46AF-A41D-A1CC36398E6C}
+		{ED311567-D612-48A5-84A5-EBD183EBB975} = {9C9B1D35-6FAF-4E95-9EA1-A3392F37DE38}
+	EndGlobalSection
+EndGlobal

@@ -1,8 +1,8 @@
-﻿using Dddifier.Models;
+﻿using Dddfier.Models;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Dddifier.Generators;
+namespace Dddfier.Generators;
 
 [Generator]
 public sealed class AggregateIdGenerator : IIncrementalGenerator

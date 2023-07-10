@@ -1,4 +1,4 @@
-using Dddifier.Generators;
+using Dddfier.Generators;
 using FluentAssertions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;

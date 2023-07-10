@@ -35,7 +35,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Dddifier\Dddifier.csproj" />
+      <ProjectReference Include="..\..\src\Dddfier\Dddfier.csproj" />
     </ItemGroup>
 
 </Project>
