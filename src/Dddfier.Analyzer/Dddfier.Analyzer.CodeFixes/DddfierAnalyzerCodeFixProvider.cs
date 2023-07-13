@@ -19,9 +19,7 @@ namespace Dddfier.Analyzer
     public class DddfierAnalyzerCodeFixProvider : CodeFixProvider
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
-        {
-            get { return ImmutableArray.Create(DddfierAnalyzer.DiagnosticId); }
-        }
+            => ImmutableArray.Create(DddfierAnalyzer.DiagnosticId);
 
         public sealed override FixAllProvider GetFixAllProvider()
         {
@@ -33,39 +31,70 @@ namespace Dddfier.Analyzer
         {
             var root = await context.Document.GetSyntaxRootAsync(context.CancellationToken).ConfigureAwait(false);
 
-            // TODO: Replace the following code with your own analysis, generating a CodeAction for each fix to suggest
+            if (root is null)
+                return;
+
             var diagnostic = context.Diagnostics.First();
             var diagnosticSpan = diagnostic.Location.SourceSpan;
 
-            // Find the type declaration identified by the diagnostic.
-            var declaration = root.FindToken(diagnosticSpan.Start).Parent.AncestorsAndSelf().OfType<TypeDeclarationSyntax>().First();
+            var classDeclarationSyntax =
+                root.FindToken(diagnosticSpan.Start)
+                    .Parent?
+                    .AncestorsAndSelf()
+                    .OfType<ClassDeclarationSyntax>()
+                    .FirstOrDefault();
+
+            if (classDeclarationSyntax is null)
+                return;
 
             // Register a code action that will invoke the fix.
             context.RegisterCodeFix(
                 CodeAction.Create(
                     title: CodeFixResources.CodeFixTitle,
-                    createChangedSolution: c => MakeUppercaseAsync(context.Document, declaration, c),
+                    createChangedDocument: _ =>
+                        AddWithIdAttribute(context.Document, classDeclarationSyntax),
                     equivalenceKey: nameof(CodeFixResources.CodeFixTitle)),
                 diagnostic);
         }
 
-        private async Task<Solution> MakeUppercaseAsync(Document document, TypeDeclarationSyntax typeDecl, CancellationToken cancellationToken)
+        private static async Task<Document> AddWithIdAttribute(
+            Document contextDocument,
+            ClassDeclarationSyntax declaration)
         {
-            // Compute new uppercase name.
-            var identifierToken = typeDecl.Identifier;
-            var newName = identifierToken.Text.ToUpperInvariant();
+            var attribute = SyntaxFactory.AttributeList
+            (
+                SyntaxFactory.SingletonSeparatedList
+                (
+                    SyntaxFactory.Attribute
+                    (
+                        SyntaxFactory.GenericName
+                            (
+                                SyntaxFactory.Identifier("WithIdOf")
+                            )
+                            .WithTypeArgumentList
+                            (
+                                SyntaxFactory.TypeArgumentList
+                                    (
+                                        SyntaxFactory.SingletonSeparatedList<TypeSyntax>
+                                        (
+                                            SyntaxFactory.IdentifierName("int")
+                                        )
+                                    )
+                                    .WithLessThanToken
+                                    (
+                                        SyntaxFactory.Token(SyntaxKind.LessThanToken)
+                                    )
+                                    .WithGreaterThanToken
+                                    (
+                                        SyntaxFactory.Token(SyntaxKind.GreaterThanToken)
+                                    )
+                            )
+                    )));
 
-            // Get the symbol representing the type to be renamed.
-            var semanticModel = await document.GetSemanticModelAsync(cancellationToken);
-            var typeSymbol = semanticModel.GetDeclaredSymbol(typeDecl, cancellationToken);
+            var newClassDeclaration = declaration.WithAttributeLists(
+                new SyntaxList<AttributeListSyntax>(attribute));
 
-            // Produce a new solution that has all references to that type renamed, including the declaration.
-            var originalSolution = document.Project.Solution;
-            var optionSet = originalSolution.Workspace.Options;
-            var newSolution = await Renamer.RenameSymbolAsync(document.Project.Solution, typeSymbol, newName, optionSet, cancellationToken).ConfigureAwait(false);
-
-            // Return the new solution with the now-uppercase type name.
-            return newSolution;
+            return contextDocument.WithSyntaxRoot(newClassDeclaration);
         }
     }
 }

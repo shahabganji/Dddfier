@@ -15,7 +15,6 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
-        <PackageReference Include="Microsoft.CodeAnalysis" Version="3.3.1" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing.XUnit" Version="1.1.1" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeFix.Testing.XUnit" Version="1.1.1" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing.XUnit" Version="1.1.1" />
@@ -26,6 +25,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\Dddfier.Analyzer\Dddfier.Analyzer\Dddfier.Analyzer.csproj" />
         <ProjectReference Include="..\..\src\Dddfier.Analyzer\Dddfier.Analyzer.CodeFixes\Dddfier.Analyzer.CodeFixes.csproj" />
+        <ProjectReference Include="..\..\src\Dddfier\Dddfier.csproj" />
     </ItemGroup>
 
 
