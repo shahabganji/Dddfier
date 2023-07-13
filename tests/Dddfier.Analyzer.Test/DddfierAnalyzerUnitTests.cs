@@ -26,7 +26,6 @@ public class DddfierAnalyzerUnitTest
 
         // Assert
         await analyserTest.RunAsync();
-
     }
 
     //Diagnostic and CodeFix both triggered and checked for
@@ -35,7 +34,7 @@ public class DddfierAnalyzerUnitTest
     {
         // Arrange
         const string test =
-                $$"""
+            $$"""
                 namespace TestSample
                 {
                     public class TestClass
@@ -52,31 +51,34 @@ public class DddfierAnalyzerUnitTest
                 Sources = { test }
             }
         };
-        
+
         // Assert
         await analyserTest.RunAsync();
     }
-    
-    //Diagnostic and CodeFix both triggered and checked for
-    [Fact]
-    public async Task Having_Id_Property_With_Primitive_Type_Is_A_Sign_Of_Primitive_Obsession()
+
+    [Theory]
+    [InlineData("Id")]
+    [InlineData("ID")]
+    [InlineData("TestClassId")]
+    public async Task Having_Id_Property_With_Primitive_Type_Is_A_Sign_Of_Primitive_Obsession(string idPropertyName)
     {
         // Arrange
-        const string test =
+        var test =
             $$"""
                 namespace TestSample
                 {
                     public class TestClass
                     {
-                        public int Id { get; set; }
+                        public int {{idPropertyName}} { get; set; }
                     }
                 }
                 """;
 
-        var expected = new DiagnosticResult(DddfierAnalyzer.DiagnosticId, DiagnosticSeverity.Error)
+        var expected = new DiagnosticResult(
+                DddfierAnalyzer.DiagnosticId,
+                DiagnosticSeverity.Error)
             .WithLocation(5, 9);
-            
-        
+
         var analyserTest = new CSharpAnalyzerTest<DddfierAnalyzer, XUnitVerifier>
         {
             TestState =
@@ -84,6 +86,35 @@ public class DddfierAnalyzerUnitTest
                 Sources = { test }
             },
             ExpectedDiagnostics = { expected }
+        };
+
+        // Assert
+        await analyserTest.RunAsync();
+    }
+
+    [Fact]
+    public async Task Having_Id_Property_With_NonPrimitive_Type_Creates_No_Diagnostics()
+    {
+        // Arrange
+        const string test =
+            $$"""
+                namespace TestSample
+                {
+                    public class TestClassId { }
+
+                    public class TestClass
+                    {
+                        public TestClassId Id { get; set; }
+                    }
+                }
+                """;
+
+        var analyserTest = new CSharpAnalyzerTest<DddfierAnalyzer, XUnitVerifier>
+        {
+            TestState =
+            {
+                Sources = { test }
+            },
         };
 
         // Assert

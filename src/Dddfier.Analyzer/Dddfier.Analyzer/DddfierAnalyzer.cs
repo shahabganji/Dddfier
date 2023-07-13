@@ -3,6 +3,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using System.Collections.Immutable;
+using System.Linq;
 
 namespace Dddfier.Analyzer
 {
@@ -52,11 +53,15 @@ namespace Dddfier.Analyzer
             if (symbol is not IPropertySymbol propertySymbol)
                 return;
 
-            const string id = "Id";
-            var classId = $"{className}Id";
+            var idPropertyNames = new[] { "Id", "ID", $"{className}Id", $"{className}ID" };
 
-            if (propertySymbol.Name != id && propertySymbol.Name != classId)
+            if (!idPropertyNames.Contains(propertySymbol.Name))
                 return;
+
+            if (!propertySymbol.Type.IsValueType)
+                return;
+            
+            var propertyTypeName = propertySymbol.Type.Name;
 
             var diagnosticForProperty = Diagnostic.Create(Rule, propertyExpressionSyntax.GetLocation());
 
