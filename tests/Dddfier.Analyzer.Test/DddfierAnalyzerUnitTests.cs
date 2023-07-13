@@ -1,59 +1,83 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading.Tasks;
-using VerifyCS = Dddfier.Analyzer.Test.CSharpCodeFixVerifier<
-    Dddfier.Analyzer.DddfierAnalyzerAnalyzer,
+using FluentAssertions;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Testing;
+using Microsoft.CodeAnalysis.Diagnostics;
+using Microsoft.CodeAnalysis.Testing;
+using Microsoft.CodeAnalysis.Testing.Verifiers;
+using Microsoft.CodeAnalysis.Text;
+using VerifyCS = Dddfier.Analyzer.Test.Verifiers.CSharpCodeFixVerifier<
+    Dddfier.Analyzer.DddfierAnalyzer,
     Dddfier.Analyzer.DddfierAnalyzerCodeFixProvider>;
 
-namespace Dddfier.Analyzer.Test
+namespace Dddfier.Analyzer.Test;
+
+[TestClass]
+public class DddfierAnalyzerUnitTest
 {
-    [TestClass]
-    public class DddfierAnalyzerUnitTest
+    //No diagnostics expected to show up
+    [TestMethod]
+    public async Task No_Source_No_Diagnostics()
     {
-        //No diagnostics expected to show up
-        [TestMethod]
-        public async Task TestMethod1()
+        // Arrange
+        const string test = @"";
+
+        // Assert
+        await VerifyCS.VerifyAnalyzerAsync(test);
+    }
+
+    //Diagnostic and CodeFix both triggered and checked for
+    [TestMethod]
+    public async Task No_Id_No_Diagnostics()
+    {
+        // Arrange
+        const string test =
+                $$"""
+                namespace TestSample
+                {
+                    public class TestClass
+                    {
+                        public int Value { get; set; }
+                    }
+                }
+                """;
+
+        var analyserTest = new CSharpAnalyzerTest<DddfierAnalyzer, MSTestVerifier>()
         {
-            var test = @"";
-
-            await VerifyCS.VerifyAnalyzerAsync(test);
-        }
-
-        //Diagnostic and CodeFix both triggered and checked for
-        [TestMethod]
-        public async Task TestMethod2()
-        {
-            var test = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    namespace ConsoleApplication1
+            TestState =
+            {
+                Sources = { test }
+            }
+        };
+        
+        // Assert
+        await analyserTest.RunAsync();
+    }
+    
+    //Diagnostic and CodeFix both triggered and checked for
+    [TestMethod]
+    public async Task Having_Id_Property_With_Primitive_Type_Is_A_Sign_Of_Primitive_Obsession()
     {
-        class {|#0:TypeName|}
-        {   
-        }
-    }";
+        // Arrange
+        const string test =
+            $$"""
+                namespace TestSample
+                {
+                    public class TestClass
+                    {
+                        public int #4|Id { get; set; }
+                    }
+                }
+                """;
 
-            var fixtest = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
-
-    namespace ConsoleApplication1
-    {
-        class TYPENAME
-        {   
-        }
-    }";
-
-            var expected = VerifyCS.Diagnostic("DddfierAnalyzer").WithLocation(0).WithArguments("TypeName");
-            await VerifyCS.VerifyCodeFixAsync(test, expected, fixtest);
-        }
+        var expected = new DiagnosticResult(DddfierAnalyzer.DiagnosticId, DiagnosticSeverity.Error)
+            ;
+        
+        // Assert
+        await VerifyCS.VerifyAnalyzerAsync(test,expected);
     }
 }

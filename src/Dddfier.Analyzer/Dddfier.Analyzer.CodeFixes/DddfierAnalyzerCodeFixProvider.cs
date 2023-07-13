@@ -20,7 +20,7 @@ namespace Dddfier.Analyzer
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(DddfierAnalyzerAnalyzer.DiagnosticId); }
+            get { return ImmutableArray.Create(DddfierAnalyzer.DiagnosticId); }
         }
 
         public sealed override FixAllProvider GetFixAllProvider()

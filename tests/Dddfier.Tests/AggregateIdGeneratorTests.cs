@@ -2,6 +2,7 @@ using Dddfier.Generators;
 using FluentAssertions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Dddfier.Tests;
 
@@ -64,7 +65,7 @@ public class AggregateIdGeneratorTests
         );
     }
 
-    private static Compilation? GetGeneratedOutput(string source)
+    private static Compilation GetGeneratedOutput(string source)
     {
         var syntaxTree = CSharpSyntaxTree.ParseText(source);
 

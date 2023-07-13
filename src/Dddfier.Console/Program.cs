@@ -8,7 +8,7 @@ using Microsoft.Build.Locator;
 using Microsoft.CodeAnalysis.MSBuild;
 using Microsoft.CodeAnalysis.Text;
 
-
+Console.WriteLine("Running application, uhooooo");
 
 var tree = CSharpSyntaxTree.ParseText(
     // lang=csharp

@@ -2,7 +2,7 @@
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Testing.Verifiers;
 
-namespace Dddfier.Analyzer.Test
+namespace Dddfier.Analyzer.Test.Verifiers
 {
     public static partial class CSharpAnalyzerVerifier<TAnalyzer>
         where TAnalyzer : DiagnosticAnalyzer, new()

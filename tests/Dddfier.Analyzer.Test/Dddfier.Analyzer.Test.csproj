@@ -5,24 +5,31 @@
 
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="1.3.2" />
-    <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
+    <PackageReference Include="FluentAssertions" Version="6.11.0" />
+    <PackageReference Include="FluentAssertions.Analyzers" Version="0.21.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
     <PackageReference Include="Microsoft.CodeAnalysis" Version="3.3.1" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Analyzer.Testing.MSTest" Version="1.1.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeFix.Testing.MSTest" Version="1.1.0" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp.CodeRefactoring.Testing.MSTest" Version="1.1.0" />
+    <PackageReference Include="xunit" Version="2.5.0" />
 <!--    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic.Analyzer.Testing.MSTest" Version="1.1.0" />-->
 <!--    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic.CodeFix.Testing.MSTest" Version="1.1.0" />-->
 <!--    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic.CodeRefactoring.Testing.MSTest" Version="1.1.0" />-->
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Dddfier.Analyzer\Dddfier.Analyzer.CodeFixes\Dddfier.Analyzer.CodeFixes.csproj" />
     <ProjectReference Include="..\..\src\Dddfier.Analyzer\Dddfier.Analyzer\Dddfier.Analyzer.csproj" />
+    <ProjectReference Include="..\..\src\Dddfier.Analyzer\Dddfier.Analyzer.CodeFixes\Dddfier.Analyzer.CodeFixes.csproj" />
   </ItemGroup>
 
 

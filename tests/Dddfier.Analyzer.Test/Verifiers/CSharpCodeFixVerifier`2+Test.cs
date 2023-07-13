@@ -3,7 +3,7 @@ using Microsoft.CodeAnalysis.CSharp.Testing;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Testing.Verifiers;
 
-namespace Dddfier.Analyzer.Test
+namespace Dddfier.Analyzer.Test.Verifiers
 {
     public static partial class CSharpCodeFixVerifier<TAnalyzer, TCodeFix>
         where TAnalyzer : DiagnosticAnalyzer, new()
