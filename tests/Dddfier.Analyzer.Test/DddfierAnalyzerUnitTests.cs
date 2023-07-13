@@ -1,37 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Testing;
-using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Testing.Verifiers;
-using Microsoft.CodeAnalysis.Text;
-using VerifyCS = Dddfier.Analyzer.Test.Verifiers.CSharpCodeFixVerifier<
-    Dddfier.Analyzer.DddfierAnalyzer,
-    Dddfier.Analyzer.DddfierAnalyzerCodeFixProvider>;
+using Xunit;
 
 namespace Dddfier.Analyzer.Test;
 
-[TestClass]
 public class DddfierAnalyzerUnitTest
 {
     //No diagnostics expected to show up
-    [TestMethod]
+    [Fact]
     public async Task No_Source_No_Diagnostics()
     {
         // Arrange
         const string test = @"";
 
+        var analyserTest = new CSharpAnalyzerTest<DddfierAnalyzer, XUnitVerifier>
+        {
+            TestState =
+            {
+                Sources = { test }
+            }
+        };
+
         // Assert
-        await VerifyCS.VerifyAnalyzerAsync(test);
+        await analyserTest.RunAsync();
+
     }
 
     //Diagnostic and CodeFix both triggered and checked for
-    [TestMethod]
+    [Fact]
     public async Task No_Id_No_Diagnostics()
     {
         // Arrange
@@ -46,7 +45,7 @@ public class DddfierAnalyzerUnitTest
                 }
                 """;
 
-        var analyserTest = new CSharpAnalyzerTest<DddfierAnalyzer, MSTestVerifier>()
+        var analyserTest = new CSharpAnalyzerTest<DddfierAnalyzer, XUnitVerifier>
         {
             TestState =
             {
@@ -59,7 +58,7 @@ public class DddfierAnalyzerUnitTest
     }
     
     //Diagnostic and CodeFix both triggered and checked for
-    [TestMethod]
+    [Fact]
     public async Task Having_Id_Property_With_Primitive_Type_Is_A_Sign_Of_Primitive_Obsession()
     {
         // Arrange
@@ -69,15 +68,25 @@ public class DddfierAnalyzerUnitTest
                 {
                     public class TestClass
                     {
-                        public int #4|Id { get; set; }
+                        public int Id { get; set; }
                     }
                 }
                 """;
 
         var expected = new DiagnosticResult(DddfierAnalyzer.DiagnosticId, DiagnosticSeverity.Error)
-            ;
+            .WithLocation(5, 9);
+            
         
+        var analyserTest = new CSharpAnalyzerTest<DddfierAnalyzer, XUnitVerifier>
+        {
+            TestState =
+            {
+                Sources = { test }
+            },
+            ExpectedDiagnostics = { expected }
+        };
+
         // Assert
-        await VerifyCS.VerifyAnalyzerAsync(test,expected);
+        await analyserTest.RunAsync();
     }
 }
