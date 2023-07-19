@@ -10,13 +10,13 @@ public partial class Customer
 }
 
 
-
-public class Product
-{
-    public int Id { get; init; }
-}
-
-public class Voucher
-{
-    public Guid VoucherId { get; init; }
-}
+//
+// public class Product
+// {
+//     public int Id { get; init; }
+// }
+//
+// public class Voucher
+// {
+//     public Guid VoucherId { get; init; }
+// }
