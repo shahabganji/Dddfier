@@ -14,20 +14,19 @@ using static Nuke.Common.Tools.DotNet.DotNetTasks;
 
 [GitHubActions(
     "publish",
-    GitHubActionsImage.UbuntuLatest,
+    GitHubActionsImage.WindowsServer2022,
     OnPushBranches = new[] { "publish" },
     InvokedTargets = new[] { nameof(Publish) },
     ImportSecrets = new[] { nameof(NuGetApiKey) })]
 [GitHubActions(
     "ci",
-    GitHubActionsImage.UbuntuLatest,
+    GitHubActionsImage.WindowsServer2022,
     OnPullRequestBranches = new []{ "develop", "main" }, 
     OnPushBranches = new[] { "main" },
     InvokedTargets = new[] { nameof(Test), nameof(Pack) })]
 class Build : NukeBuild
 {
     [GitRepository] readonly GitRepository GitRepository;
-
 
     /// Support plugins are available for:
     ///   - JetBrains ReSharper        https://nuke.build/resharper
