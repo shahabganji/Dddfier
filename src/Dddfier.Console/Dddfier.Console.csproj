@@ -16,8 +16,11 @@
 
 
     <ItemGroup>
-<!--        <Analyzer Include="..\Dddfier.Analyzer\Dddfier.Analyzer\bin\Debug\netstandard2.0\Dddfier.Analyzer.dll"/>-->
-<!--        <Analyzer Include="..\Dddfier.Analyzer\Dddfier.Analyzer.CodeFixes\bin\Debug\netstandard2.0\Dddfier.Analyzer.CodeFixes.dll"/>-->
+        <!--        <Analyzer Include="..\Dddfier.Analyzer\Dddfier.Analyzer\bin\Debug\netstandard2.0\Dddfier.Analyzer.dll"/>-->
+        <!--        <Analyzer Include="..\Dddfier.Analyzer\Dddfier.Analyzer.CodeFixes\bin\Debug\netstandard2.0\Dddfier.Analyzer.CodeFixes.dll"/>-->
+
+        <ProjectReference Include="..\Dddfier.Analyzer\Dddfier.Analyzer\Dddfier.Analyzer.CodeFixes.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
+        <ProjectReference Include="..\Dddfier.Analyzer\Dddfier.Analyzer\Dddfier.Analyzer.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
         <ProjectReference Include="..\Dddfier\Dddfier.csproj" ReferenceOutputAssembly="false" OutputItemType="Analyzer"/>
     </ItemGroup>
 
