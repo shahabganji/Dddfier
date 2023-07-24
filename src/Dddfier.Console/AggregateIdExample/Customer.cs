@@ -3,12 +3,17 @@ using Dddfier.GeneratedCode.Attributes;
 
 namespace Dddfier.Console.AggregateIdExample;
 
-[WithIdOf<Guid>(PropertyName = "CustomerId", SetterModifier = SetterModifier.Protected)]
+[WithIdOf<double>(PropertyName = "CustomerId", SetterModifier = SetterModifier.Protected)]
 public partial class Customer
 {
     public override string ToString() => this.CustomerId.ToString();
-}
 
+    // void Foo()
+    // {
+    //     var customerId = (CustomerId)Guid.NewGuid();
+    //     Guid customerIdGuid = CustomerId;
+    // }
+}
 
 //
 // public class Product
