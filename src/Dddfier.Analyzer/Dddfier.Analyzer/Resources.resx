@@ -122,8 +122,8 @@
     <comment>An optional longer localizable description of the diagnostic.</comment>
   </data>
   <data name="AnalyzerMessageFormat" xml:space="preserve">
-    <value>Property {0} has a primitive type, that is better to be replaced with a strong type.</value>
-    <comment>The format-able message the diagnostic displays.</comment>
+    <value>Property {0} has a primitive type, that is better to be replaced with a strong type</value>
+    <comment>The format-able message the diagnostic displays</comment>
   </data>
   <data name="AnalyzerTitle" xml:space="preserve">
     <value>No Primitive Obsession</value>

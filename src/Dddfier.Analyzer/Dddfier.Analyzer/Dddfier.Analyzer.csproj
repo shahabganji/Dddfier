@@ -7,6 +7,12 @@
     <!-- Avoid ID conflicts with the package project. -->
     <PackageId>*$(MSBuildProjectFile)*</PackageId>
     <LangVersion>latest</LangVersion>
+
+    <!-- 👇 For being able to debug this by hitting F5 in the IDE -->
+    <!-- RS1036: Specify analyzer banned API enforcement setting -->
+    <!-- https://github.com/dotnet/roslyn-analyzers/blob/main/src/Microsoft.CodeAnalysis.Analyzers/Microsoft.CodeAnalysis.Analyzers.md#rs1036-specify-analyzer-banned-api-enforcement-setting -->
+    <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+    
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,5 +24,5 @@
     <Compile Update="Resources.Designer.cs" DesignTime="True" AutoGen="True" DependentUpon="Resources.resx" />
     <EmbeddedResource Update="Resources.resx" Generator="ResXFileCodeGenerator" LastGenOutput="Resources.Designer.cs" />
   </ItemGroup>
-
+  
 </Project>

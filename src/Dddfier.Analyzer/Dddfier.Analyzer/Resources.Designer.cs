@@ -69,7 +69,7 @@ namespace Dddfier.Analyzer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Property {0} has a primitive type, that is better to be replaced with a strong type..
+        ///   Looks up a localized string similar to Property {0} has a primitive type, that is better to be replaced with a strong type.
         /// </summary>
         internal static string AnalyzerMessageFormat {
             get {
