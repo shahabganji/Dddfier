@@ -1,24 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
+        <!-- 👇 Source generators must target netstandard 2.0 -->
         <TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <LangVersion>latest</LangVersion>
+        
+        <!-- 👇 Including symbols for better Debugging experience for the consumers of the package  -->
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-        <NoWarn>$(NoWarn);NU5128</NoWarn>
-
-
+        <!-- 👇 We don't want to reference the source generator dll directly in consuming projects -->
+        <IncludeBuildOutput>false</IncludeBuildOutput>
+        
         <!-- 👇 For being able to debug this by hitting F5 in the IDE -->
         <!-- RS1036: Specify analyzer banned API enforcement setting -->
         <!-- https://github.com/dotnet/roslyn-analyzers/blob/main/src/Microsoft.CodeAnalysis.Analyzers/Microsoft.CodeAnalysis.Analyzers.md#rs1036-specify-analyzer-banned-api-enforcement-setting -->
         <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
-
-    </PropertyGroup>
-
-    <PropertyGroup>
-
-        <IncludeSymbols>true</IncludeSymbols>
 
         <!-- 👇 For being able to debug this by hitting F5 in the IDE -->
         <!--
@@ -29,9 +25,14 @@
         -->
         <IsRoslynComponent>true</IsRoslynComponent>
         
-        <!-- 👇 We don't want to reference the source generator dll directly in consuming projects -->
-        <IncludeBuildOutput>false</IncludeBuildOutput>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <LangVersion>latest</LangVersion>
+
+        <NoWarn>$(NoWarn);NU5128</NoWarn>
+
     </PropertyGroup>
+
 
     <PropertyGroup>
         <!--        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>-->
@@ -49,25 +50,27 @@
     <!-- 👇 This ensures the library will be packaged as a source generator when we use `dotnet pack` -->
     <ItemGroup>
         <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(OutputPath)\Dddfier.dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+        <None Include="$(OutputPath)\Dddfier.dll" Pack="true" PackagePath="lib\netstandard2.0" Visible="true" />
     </ItemGroup>
     
     <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <!-- 👇 We need these two packages for netstandard2.0 -->
         <PackageReference Include="Nullable" Version="1.3.1" PrivateAssets="all" />
         <PackageReference Include="IsExternalInit" Version="1.0.3" PrivateAssets="all" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-
+        <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
         <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.6.0" />
 
-        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0-preview1.23165.1">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.3" PrivateAssets="all" />
     </ItemGroup>
 
+
+    <ItemGroup>
+        <Compile Remove="Templates\**\*.cs" />
+        <EmbeddedResource Include="Templates\**\*.cs" />
+    </ItemGroup>
+    
 </Project>

@@ -25,3 +25,4 @@ public partial class Customer
 // {
 //     public Guid VoucherId { get; init; }
 // }
+ 
